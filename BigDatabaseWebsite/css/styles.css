@@ -1,15 +1,22 @@
 .container {
     display: grid;
 
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 20% 1fr;
     height: 100vh;
 }
 
 .TopBar{
     background-color: rgb(19, 19, 19);
-    padding: 5rem;
+    padding: 1rem;
+
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: 1fr auto;
 }
 .MainScreen{
+    background-image: url('/BigDatabaseWebsite/texaschainsaw.gif');
+    background-size: cover;
     background-color: rgb(207, 207, 207);
     
     display: flex;
@@ -19,7 +26,7 @@
 .SignInCard{
     text-align: center;
 
-    background-color: rgb(255, 255, 255);
+    background-color: #181818;
     margin: 20px 0 20px 0;
    
     
@@ -27,6 +34,8 @@
 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for visual depth */
     border-radius: 8px; /* Rounded corners */
+
+    color:white;
 }
 form {
     display: flex;
@@ -35,6 +44,7 @@ form {
     
     margin-top: 1rem;
     padding: 2rem;
+
     
 }
 
@@ -44,6 +54,7 @@ label {
     font-weight: bold;
 
     font-size: larger;
+    color: white;
 }
 
 input[type="email"],
@@ -57,6 +68,8 @@ input[type="password"] {
     width: 100%; /* Make inputs take up the full width of the form */
     
     box-sizing: border-box; /* Ensure padding doesn't overflow the width */
+
+    background-color: black;
 }
 
 button[type="submit"] {
@@ -77,4 +90,9 @@ button[type="submit"]:hover {
 }
 .registerLink{
     font-size: x-large;
+}
+
+#image1{
+    width: 20%;
+    height: 80%;
 }
