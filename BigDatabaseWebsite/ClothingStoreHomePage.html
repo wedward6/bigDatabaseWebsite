@@ -1,14 +1,41 @@
-<!DOCTYPE html>
-<head>
-    <title>Sign in Page</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-</head>
-<body>
-	<Div class = "container">
-   		<nav class="TopBar"></nav>
-   		<main class="MainScreen">
-            <h1>Blank page for now</h1>
-		</main>
-    </Div>
-</body>
-</html>
+<!doctype html>
+<html>
+	<head>
+		<script>
+			function showFeatured(){
+
+			}
+		</script>
+		<style type="text/css">
+			body {
+				background-image: url('texaschainsaw.gif');
+				background-size: cover;
+
+				height: 100vh;
+				padding: 0;
+				margin: 0;
+
+				font-family: graf;
+				color: white;
+			}
+			@font-face {
+				font-family: graf;
+				src: url('SparticalGraffitiLine_PERSONAL_USE_ONLY.otf');
+			}
+			#image1:hover {
+			content: url('featured.gif');
+		}
+			#image2:hover {
+			content: url('login.gif');
+		}
+
+		</style>
+	</head>
+	<body>
+		<h1 style="size: 200" align="center">www.archive.com</h1>
+		<img id="image1" src="featured.png" width="2000px" height="1000px" align="center" onclick="window.location.href = 'featuredPage.html'">
+		<img id="image2" src="login.png" width="2000px" height="1000px" align="center" onclick="window.location
+			.href = 'SignInPage.html'">
+		<button> </button>	
+	</body>
+</html>	
