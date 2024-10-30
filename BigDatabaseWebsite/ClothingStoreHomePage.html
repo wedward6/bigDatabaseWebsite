@@ -28,14 +28,47 @@
 			#image2:hover {
 			content: url('login.gif');
 		}
-
+			#featuredLeft {
+			padding-left: 300px;
+		}
+			#featuredRight {
+			padding-right: 300px;
+		}
+			#featuredLeft:hover {
+			content: url('humanHat.gif');
+		}
+			#featuredRight:hover {
+			content: url('humanHat.gif');
+		}
 		</style>
 	</head>
 	<body>
-		<h1 style="size: 200" align="center">www.archive.com</h1>
-		<img id="image1" src="featured.png" width="100%" height="50%" align="center" onclick="window.location.href = 'featuredPage.html'">
-		<img id="image2" src="login.png" width="100%" height="50%" align="center" onclick="window.location
+		<tr>
+			<td>
+				<img id="image1" src="featured.png" width="200px" height="100px" align="center" onclick="window.location.href = 'featuredPage.html'">
+			</td>
+			<td>
+				<img id="image2" src="login.png" width="200px" height="100px" align="right" onclick="window.location
 			.href = 'SignInPage.html'">
-		<button> </button>	
+			</td>
+		</tr>
+		<tr>
+		</tr>
+		<h1 style="size: 200" align="center">www.archive.com</h1>
+		<table>
+    <tr>
+        <td>
+            <img id="featuredLeft" src="humanHat.png" align="left" onclick="window.location.href = 'humanHat.html'">
+            <img id="featuredRight" src="humanHat.png" align="right" onclick="window.location.href = 'humanHat.html'">
+        </td>
+    </tr>
+    <tr>
+        <td>
+           <img id="featuredLeft" src="humanHat.png" align="left" onclick="window.location.href = 'humanHat.html'">
+           <img id="featuredRight" src="humanHat.png" align="right" onclick="window.location.href = 'humanHat.html'">
+        </td>
+    </tr>
+</table>
+			
 	</body>
 </html>	
