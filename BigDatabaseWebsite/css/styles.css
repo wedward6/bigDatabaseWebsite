@@ -3,16 +3,25 @@
 
     grid-template-rows: 20% 1fr;
     height: 100vh;
+    width: 100%;
 }
 
 .TopBar{
     background-color: rgb(19, 19, 19);
-    padding: 1rem;
 
     height: 100%;
+    width: 100%;
 
     display: grid;
-    grid-template-rows: 1fr auto;
+    justify-content: space-evenly;
+    align-items:center;
+    
+    grid-template-rows: repeat(2, 100%);
+    grid-template-columns: repeat(2, 40%);
+
+    border-color: white;
+    border-bottom-style: solid;
+
 }
 .MainScreen{
     background-image: url('/BigDatabaseWebsite/texaschainsaw.gif');
@@ -22,6 +31,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    border-color: rgb(74, 74, 74);
+    border-top-style: solid;
 }
 .SignInCard{
     text-align: center;
@@ -37,6 +49,7 @@
 
     color:white;
 }
+
 form {
     display: flex;
     flex-direction: column;
@@ -92,7 +105,32 @@ button[type="submit"]:hover {
     font-size: x-large;
 }
 
-#image1{
-    width: 20%;
+#image1, #image2{
+    width: 10rem;
     height: 80%;
+}
+.purchasableItem{
+    width: 100%;
+    height: 90%;
+    background-color: #282828;
+    border: rgb(92, 92, 92);
+    border-style: solid;
+}
+
+.ItemContainer{
+    display: grid;
+    background-color: #000000;
+
+    padding: 1rem;
+ 
+    width: 80%;
+    height: 80%;
+
+    gap: .5rem;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: auto;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-color: rgb(74, 74, 74);;
 }

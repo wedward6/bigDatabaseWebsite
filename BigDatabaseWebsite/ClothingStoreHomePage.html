@@ -1,23 +1,13 @@
 <!doctype html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<script>
 			function showFeatured(){
 
 			}
 		</script>
 		<style type="text/css">
-			body {
-				background-image: url('texaschainsaw.gif');
-				background-size: cover;
-
-				height: 100vh;
-				padding: 0;
-				margin: 0;
-
-				font-family: graf;
-				color: white;
-			}
 			@font-face {
 				font-family: graf;
 				src: url('SparticalGraffitiLine_PERSONAL_USE_ONLY.otf');
@@ -28,12 +18,6 @@
 			#image2:hover {
 			content: url('login.gif');
 		}
-			#featuredLeft {
-			padding-left: 300px;
-		}
-			#featuredRight {
-			padding-right: 300px;
-		}
 			#featuredLeft:hover {
 			content: url('humanHat.gif');
 		}
@@ -43,32 +27,24 @@
 		</style>
 	</head>
 	<body>
-		<tr>
-			<td>
-				<img id="image1" src="featured.png" width="200px" height="100px" align="center" onclick="window.location.href = 'featuredPage.html'">
-			</td>
-			<td>
-				<img id="image2" src="login.png" width="200px" height="100px" align="right" onclick="window.location
-			.href = 'SignInPage.html'">
-			</td>
-		</tr>
-		<tr>
-		</tr>
-		<h1 style="size: 200" align="center">www.archive.com</h1>
-		<table>
-    <tr>
-        <td>
-            <img id="featuredLeft" src="humanHat.png" align="left" onclick="window.location.href = 'humanHat.html'">
-            <img id="featuredRight" src="humanHat.png" align="right" onclick="window.location.href = 'humanHat.html'">
-        </td>
-    </tr>
-    <tr>
-        <td>
-           <img id="featuredLeft" src="humanHat.png" align="left" onclick="window.location.href = 'humanHat.html'">
-           <img id="featuredRight" src="humanHat.png" align="right" onclick="window.location.href = 'humanHat.html'">
-        </td>
-    </tr>
-</table>
+		<Div class = "container">
+			<nav class="TopBar">
+			 <img id="image1" src="featured.png" onclick="window.location.href = 'featuredPage.html'">
+			 <img id="image2" src="login.png" onclick="window.location.href = 'SignInPage.html'">
+			 </nav>
+			<main class="MainScreen">
+				<div class="ItemContainer">
+					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+				</div>
+ 
+		 </main>
+	 </Div>
 			
 	</body>
 </html>	
