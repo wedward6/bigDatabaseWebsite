@@ -1,7 +1,7 @@
 .container {
     display: grid;
 
-    grid-template-rows: 20% 1fr;
+    grid-template-rows: 10% 1fr;
     height: 100vh;
     width: 100%;
 }
@@ -11,16 +11,20 @@
 
     height: 100%;
     width: 100%;
+   
 
     display: grid;
-    justify-content: space-evenly;
+    justify-content:stretch;
     align-items:center;
     
     grid-template-rows: repeat(2, 100%);
-    grid-template-columns: repeat(2, 40%);
+    grid-template-columns: repeat(3, 45%);
 
     border-color: white;
     border-bottom-style: solid;
+    padding-left: 1rem;
+    padding-right: .5rem;
+    
 
 }
 .MainScreen{
@@ -105,9 +109,13 @@ button[type="submit"]:hover {
     font-size: x-large;
 }
 
-#image1, #image2{
+#logo, #cart, #image2{
     width: 10rem;
     height: 80%;
+    
+}
+#logo, #cart{
+    border-style: solid;
 }
 .purchasableItem{
     width: 100%;
@@ -115,6 +123,8 @@ button[type="submit"]:hover {
     background-color: #282828;
     border: rgb(92, 92, 92);
     border-style: solid;
+
+    position: relative;
 }
 
 .ItemContainer{
@@ -126,11 +136,51 @@ button[type="submit"]:hover {
     width: 80%;
     height: 80%;
 
-    gap: .5rem;
+    gap: 1rem;
     grid-template-columns: repeat(4, auto);
     grid-template-rows: auto;
     justify-content: center;
     align-items: center;
     border-style: solid;
     border-color: rgb(74, 74, 74);;
+}
+
+.purchasableItem img{
+    width: 100%;
+    height: 100%;
+}
+.itemPrice{
+    position: absolute; /* Position relative to .image-container */
+    bottom: -10px;
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%); /* Center the text exactly */
+   
+    width: 40%;
+    text-align: center;
+
+    font-size: 1.5rem; /* Adjust text size */
+    font-weight: bold; /* Optional: make the text bold */
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: dark background with transparency */
+    padding: 10px; /* Adds padding around text */
+    border-radius: 5px; /* Optional: rounds text box corners */
+    color: darkred;
+}
+
+.outOfStockText{
+        position: absolute; /* Position relative to .image-container */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Center the text exactly */
+        color: darkred; /* Text color */
+        font-size: 1.5rem; /* Adjust text size */
+        text-align: center;
+        
+        width: 80%;
+        font-weight: bold; /* Optional: make the text bold */
+        background-color: rgba(0, 0, 0, 0.5); /* Optional: dark background with transparency */
+        padding: 10px; /* Adds padding around text */
+        border-radius: 5px; /* Optional: rounds text box corners */
+        
+        visibility: hidden;
+      
 }

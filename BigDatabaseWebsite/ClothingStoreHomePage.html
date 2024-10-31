@@ -12,12 +12,7 @@
 				font-family: graf;
 				src: url('SparticalGraffitiLine_PERSONAL_USE_ONLY.otf');
 			}
-			#image1:hover {
-			content: url('featured.gif');
-		}
-			#image2:hover {
-			content: url('login.gif');
-		}
+				
 			#featuredLeft:hover {
 			content: url('humanHat.gif');
 		}
@@ -29,18 +24,35 @@
 	<body>
 		<Div class = "container">
 			<nav class="TopBar">
-			 <img id="image1" src="featured.png" onclick="window.location.href = 'featuredPage.html'">
+			
+			 <img id="logo" src="clothingLogo.png" onclick="window.location.href = 'ClothingStoreHomePage.html'">
 			 <img id="image2" src="login.png" onclick="window.location.href = 'SignInPage.html'">
+			 <img id="cart" src="cartIcon.png" onclick="window.location.href = 'ClothingStoreHomePage.html'">
 			 </nav>
 			<main class="MainScreen">
 				<div class="ItemContainer">
-					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
-					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
-					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
-					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
-					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
-					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
-					<img class="purchasableItem" src="humanHat.png" onclick="window.location.href = 'humanHat.html'">
+					<div class="purchasableItem">
+						<img src="humanHat.png" onclick="window.location.href = 'ItemDetails.html'">
+						<h1 class="itemPrice">$1,500</h1>
+						<h1 class="outOfStockText">OUT OF STOCK</h1>
+					</div>
+					<div class="purchasableItem">
+						<img src="humanHat.png" onclick="window.location.href = 'ItemDetails.html'">
+						<h1 class="itemPrice">$00</h1>
+						<h1 class="outOfStockText">OUT OF STOCK</h1>
+					</div>
+					<div class="purchasableItem">
+						<img src="humanHat.png" onclick="window.location.href = 'ItemDetails.html'">
+						<h1 class="itemPrice">$00</h1>
+						<h1 class="outOfStockText">OUT OF STOCK</h1>
+					</div>
+					<div class="purchasableItem">
+						<img src="humanHat.png" onclick="window.location.href = 'ItemDetails.html'">
+						<h1 class="itemPrice">$00</h1>
+						<h1 class="outOfStockText">OUT OF STOCK</h1>
+					</div>
+					
+					
 				</div>
  
 		 </main>
