@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<style>
 			body {
 				background-image: url('texaschainsaw.gif');
@@ -11,7 +12,7 @@
 				margin: 0;
 
 				font-family: graf;
-				color: white;
+				
 			}
 			#image1:hover {
 			content: url('featured.gif');
@@ -30,16 +31,22 @@
 				padding-top: 100px;
 			    padding-right: 300px;
 			    color: red;
+
+				font-size: 3rem;
 			}
 			#description {
 				padding-top: 100px;
 			    padding-right: 300px;
 			    color: white;
+
+				font-size: 3rem;
 			}
 			#price {
 				padding-top: 100px;
 			    padding-right: 300px;
 			    color: palegreen;
+
+				font-family: 'Courier New', Courier, monospace;
 			}
 			#purchaseButton {
 				padding-top: 100px;
@@ -51,27 +58,30 @@
 			}
 		</style>
 	</head>
+	<script type ="module" src="/BigDatabaseWebsite/js/ItemDetailsScript.js" defer></script>
 	<body>
-		<tr>
-			<td>
-				<img id="image1" src="featured.png" width="200px" height="100px" align="center" onclick="window.location.href = 'featuredPage.html'">
-			</td>
-			<td>
-				<img id="image2" src="login.png" width="200px" height="100px" align="right" onclick="window.location
-			.href = 'SignInPage.html'">
-			</td>
-		</tr>
-		<tr>
-		</tr>
-		<h1 style="size: 200" align="center">www.archive.com</h1>
-		<td>
-			<img id="main" src="humanHat.png" width="982px" height="944px" align="left">
-			<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
-			<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
-			<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
-			<h1 id="description" style="size: 200" align="right">H A N D   E M B R O I D E R E D</h1>
-			<h1 id="price" style="size: 200" align="right">$ 1 5 0 0</h1>
-			<img id="purchaseButton" src="BuyNow.gif" align="right" width="128px" height="128px" onclick="window.location.href = 'itemDetails.html'">
-		</td> 
+		<Div class = "container">
+			<nav class="TopBar">
+			
+				<img id="logo" src="clothingLogo.png" onclick="window.location.href = 'ClothingStoreHomePage.html'">
+				<img id="image2" src="login.png" onclick="window.location.href = 'SignInPage.html'">
+				<img id="logout" src="logoutIcon.png">
+				<img id="cart" src="cartIcon.png" onclick="window.location.href = 'ClothingStoreHomePage.html'">
+				</nav>
+			<main>
+
+				<h1 style="size: 200" align="center">www.archive.com</h1>
+				<td>
+					<img id="main" src="humanHat.png" width="982px" height="944px" align="left">
+					<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
+					<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
+					<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
+					<h1 id="description" style="size: 200" align="right">H A N D   E M B R O I D E R E D</h1>
+					<h1 id="price" style="size: 200" align="right">$ 1 5 0 0</h1>
+					<img id="purchaseButton" src="BuyNow.gif" align="right" width="128px" height="128px" onclick="window.location.href = 'itemDetails.html'">
+				</td> 
+ 
+		 </main>
+	 </Div>
 	</body>
 </html>	
