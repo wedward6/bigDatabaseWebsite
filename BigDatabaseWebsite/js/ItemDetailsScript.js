@@ -11,6 +11,7 @@ function updateItemPage(data){
         document.querySelector("#title").innerHTML = data.itemName;
         document.querySelector("#price").innerHTML = "$" + data.itemPrice;
         document.querySelector("#description").innerHTML = data.itemDescription;
+        document.querySelector("#main").setAttribute("src", data.itemImagePath);
     }
 }
 
