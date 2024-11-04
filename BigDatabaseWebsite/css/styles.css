@@ -1,8 +1,8 @@
 .container {
     display: grid;
 
-    grid-template-rows: 10% 1fr;
-    height: 100vh;
+    grid-template-rows: 15% 1fr;
+    height: 100%;
     width: 100%;
 }
 
@@ -14,15 +14,17 @@
    
 
     display: grid;
-    justify-content:stretch;
-    align-items:center;
+    justify-content:space-between;
     
-    grid-template-rows: repeat(2, 100%);
-    grid-template-columns: repeat(3, 45%);
+    align-items:center;
+    align-self: center;
+    
+    grid-template-rows: 100%;
+    grid-template-columns: repeat(3, 34%);
 
     border-color: rgb(74, 74, 74);
     border-bottom-style: solid;
-    padding-left: 1rem;
+
     padding-right: .5rem;
     
 
@@ -113,6 +115,8 @@ button[type="submit"]:hover {
 #logo, #cart, #image2, #logout{
     width: 10rem;
     height: 80%;
+
+    justify-self: center;
     
 }
 #logo, #cart, #logout{
