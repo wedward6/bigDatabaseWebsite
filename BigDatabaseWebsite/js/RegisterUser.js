@@ -3,17 +3,20 @@ import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebase
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 
-async function createUserCart(userId) {
+async function createUserCart(userId, email, password) {
   try {
-    await setDoc(doc(db, "UserCart", userId),{
+    await setDoc(doc(db, "Users", userId),{
       userId: userId,
-      itemList: []
+      email: email,
+      password: password,
+      itemList: [],
+      orders: [],
     });
       
-    console.log("userCart succesfully initlized");
+    console.log("user succesfully user");
     window.location.href = "SignInPage.html";
   } catch (error) {
-    console.error("Error creating userCart")
+    console.error("Error creating user")
   }
 }
 
@@ -29,7 +32,7 @@ createUserWithEmailAndPassword(auth, email, password)
     const user = userCredential.user;
     alert("Creating Account...");
 
-    createUserCart(user.uid);
+    createUserCart(user.uid, email, password);
     // ...
   })
   .catch((error) => {

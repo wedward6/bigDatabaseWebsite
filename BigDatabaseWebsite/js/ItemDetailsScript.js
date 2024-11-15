@@ -44,7 +44,7 @@ async function addItemToCart() {
       const itemId = docId;
 
       //get the current users cart
-      const userCartRef = doc(db, "UserCart", auth.currentUser.uid);
+      const userCartRef = doc(db, "Users", auth.currentUser.uid);
       const userCartSnap = await getDoc(userCartRef);
 
       //check if item is already in cart, if it is, increment amount, if not, push item to cart array
@@ -70,6 +70,7 @@ async function addItemToCart() {
         //update user cart with new item
         await updateDoc(userCartRef, {userId: auth.currentUser.uid, itemList: updatedArray});
         console.log("Item added to cart");
+        alert("Item Added to cart")
       }
 
     } else {

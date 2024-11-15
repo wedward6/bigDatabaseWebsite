@@ -45,7 +45,7 @@ async function getItemData(itemInCart){
 }
 // Function to retrieve a collection
 async function getCartData(userId) {
-    const userCartRef = doc(db, "UserCart", userId);
+    const userCartRef = doc(db, "Users", userId);
       const userCartSnap = await getDoc(userCartRef);
       if(userCartSnap){
         console.log(userCartSnap.data());
