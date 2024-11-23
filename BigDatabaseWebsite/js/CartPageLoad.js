@@ -33,6 +33,24 @@ function createCartItem(itemId, data, amount) {
     }
 }
 
+async function createCheckoutTab(cartTotal){
+    const checkoutInfo = document.querySelector(".CheckoutInfo");
+
+    var divTotal = document.createElement("div");
+    divTotal.className = "TotalInfo";
+
+    var itemPriceText = document.createElement("h1");
+    itemPriceText.className = "Total";
+    itemPriceText.innerHTML = ("Total: $" + cartTotal);
+
+    itemPriceText.style.color = "white";
+    itemPriceText.style.position = "absolute";
+    itemPriceText.style.bottom = "10px";  
+    
+    divTotal.appendChild(itemPriceText);
+    checkoutInfo.appendChild(divTotal);
+}
+
 async function getItemData(itemInCart){
     const itemRef  = doc(db, "Items", itemInCart.itemId);
     const itemSnap = await getDoc(itemRef);
@@ -43,13 +61,21 @@ async function getItemData(itemInCart){
         createCartItem(itemInCart.itemId, itemSnap.data(), itemInCart.amount);
     }
 }
+
 // Function to retrieve a collection
 async function getCartData(userId) {
-    const userCartRef = doc(db, "Users", userId);
+    const userCartRef = doc(db, "UserCart", userId); 
       const userCartSnap = await getDoc(userCartRef);
       if(userCartSnap){
         console.log(userCartSnap.data());
         const itemList = userCartSnap.data().itemList;
+        console.log(itemList);
+        for(const item of itemList){
+            const itemsRef = doc(db, "Items", item.itemId);
+                const itemsSnap = await getDoc(itemsRef);
+                cartTotal += Number(itemsSnap.data().itemPrice) * item.amount;
+        }
+        createCheckoutTab(cartTotal);
         itemList.map((data, index) => getItemData(data))
       }
     
