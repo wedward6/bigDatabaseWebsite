@@ -261,7 +261,7 @@ button[type="submit"]:hover {
 
     justify-content: center;
     align-items: center;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 2fr 2fr 1fr .5fr;
 
     position: relative;
 }
@@ -269,5 +269,27 @@ button[type="submit"]:hover {
     color: green;
     text-align: center;
 
-    font-size: 4rem;
+    font-size: 400%;
+}
+.ItemTitle{
+    color: white;
+    text-align: center;
+
+    font-size: 150%;
+}
+.RemoveItemText{
+    color: rgb(177, 21, 21);
+    text-align: center;
+
+    font-size: 200%;
+}
+.ItemAmount{
+    color: white;
+    text-align: center;
+
+    border-style: solid;
+    border-color: black;
+    background-color: rgb(51, 58, 53);
+
+    font-size: 200%;
 }

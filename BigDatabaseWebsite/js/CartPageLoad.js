@@ -17,6 +17,21 @@ function createCartItem(itemId, data, amount) {
         img.className = "CartImg"
         div.onclick = (e) => { window.location.href = `ItemDetails.html?docId=${itemId}` };
 
+        //setup title
+        const title = document.createElement("h1");
+        title.className = "ItemTitle";
+        title.innerHTML = (data.itemName);
+
+        //setup amount text
+        const amountOfItem = document.createElement("h1");
+        amountOfItem.className = "ItemAmount";
+        amountOfItem.innerHTML = ("x" + amount);
+
+        const deleteItemButton = document.createElement("h1");
+        deleteItemButton.className = "RemoveItemText";
+        deleteItemButton.innerHTML = "X"
+        //deleteItemButton.onclick = (e) =>{updateCartItem(itemId, data, (amount - 1))}
+
         //setup price
         const itemPriceText = document.createElement("h1");
         itemPriceText.className = "PriceText";
@@ -24,7 +39,10 @@ function createCartItem(itemId, data, amount) {
 
 
         div.appendChild(img);
+        div.appendChild(title);
         div.appendChild(itemPriceText);
+        div.appendChild(amountOfItem);
+        div.appendChild(deleteItemButton);
         
 
         cartContainer.appendChild(div);
@@ -64,12 +82,14 @@ async function getItemData(itemInCart){
 
 // Function to retrieve a collection
 async function getCartData(userId) {
-    const userCartRef = doc(db, "UserCart", userId); 
+    const userCartRef = doc(db, "Users", userId); 
       const userCartSnap = await getDoc(userCartRef);
       if(userCartSnap){
         console.log(userCartSnap.data());
         const itemList = userCartSnap.data().itemList;
         console.log(itemList);
+       
+        let cartTotal = 0;
         for(const item of itemList){
             const itemsRef = doc(db, "Items", item.itemId);
                 const itemsSnap = await getDoc(itemsRef);
