@@ -1,12 +1,52 @@
 import { auth, db } from './App.js'
 import { signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, collection, getDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, collection, getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-function createCartItem(itemId, data, amount) {
+
+async function removeCartItem(userId, itemId, itemDiv, origPrice, priceText, itemAmount) {
+    //decrease the amount in databvase and on page
+    const userCartRef = doc(db, "Users", userId);
+    const userCartSnap = await getDoc(userCartRef);
+    if (userCartSnap) {
+        const itemsArray = userCartSnap.data().itemList || [];
+        const updatedArray = itemsArray.map(item => {
+            if (item.itemId === itemId) {
+                return {
+                    ...item,
+                    amount: item.amount - 1
+                }
+            }
+            return item;
+        })
+            .filter(item => item.amount > 0);
+
+        //update user cart with new item
+        await updateDoc(userCartRef, { userId: auth.currentUser.uid, itemList: updatedArray });
+        console.log("Item removed from cart");
+
+        //decrease the amount on page -- remove if amount is 0
+        let currentAmount = parseInt(itemAmount.innerHTML.slice(1), 10);
+        currentAmount -= 1;
+        if (currentAmount == 0) {
+            itemDiv.remove();
+        } else {
+            itemAmount.innerHTML = ("x" + currentAmount);
+            priceText.innerHTML = ("$" + origPrice * currentAmount);
+        }
+        //Update cart total
+        const cartTotalText = document.querySelector(".Total")
+        let previousTotal = parseInt(cartTotalText.innerHTML.slice(8), 10);
+        let newTotal = previousTotal -= origPrice;
+        cartTotalText.innerHTML = ("Total: $" + newTotal)
+
+
+    }
+}
+function createCartItem(userId, itemId, data, amount) {
     const cartContainer = document.querySelector(".CartContainer");
     if (data) {
-        const div = document.createElement("div");
-        div.className = "CartItem";
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "CartItem";
 
         //set up img
         const img = document.createElement("img");
@@ -15,7 +55,7 @@ function createCartItem(itemId, data, amount) {
         }
         img.alt = data.itemName;
         img.className = "CartImg"
-        div.onclick = (e) => { window.location.href = `ItemDetails.html?docId=${itemId}` };
+        img.onclick = (e) => { window.location.href = `ItemDetails.html?docId=${itemId}` };
 
         //setup title
         const title = document.createElement("h1");
@@ -30,7 +70,7 @@ function createCartItem(itemId, data, amount) {
         const deleteItemButton = document.createElement("h1");
         deleteItemButton.className = "RemoveItemText";
         deleteItemButton.innerHTML = "X"
-        //deleteItemButton.onclick = (e) =>{updateCartItem(itemId, data, (amount - 1))}
+        deleteItemButton.onclick = (e) => { removeCartItem(userId, itemId, itemDiv, data.itemPrice, itemPriceText, amountOfItem) }
 
         //setup price
         const itemPriceText = document.createElement("h1");
@@ -38,20 +78,20 @@ function createCartItem(itemId, data, amount) {
         itemPriceText.innerHTML = ("$" + data.itemPrice * amount);
 
 
-        div.appendChild(img);
-        div.appendChild(title);
-        div.appendChild(itemPriceText);
-        div.appendChild(amountOfItem);
-        div.appendChild(deleteItemButton);
-        
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(title);
+        itemDiv.appendChild(itemPriceText);
+        itemDiv.appendChild(amountOfItem);
+        itemDiv.appendChild(deleteItemButton);
 
-        cartContainer.appendChild(div);
+
+        cartContainer.appendChild(itemDiv);
 
 
     }
 }
 
-async function createCheckoutTab(cartTotal){
+async function createCheckoutTab(cartTotal) {
     const checkoutInfo = document.querySelector(".CheckoutInfo");
 
     var divTotal = document.createElement("div");
@@ -63,42 +103,42 @@ async function createCheckoutTab(cartTotal){
 
     itemPriceText.style.color = "white";
     itemPriceText.style.position = "absolute";
-    itemPriceText.style.bottom = "10px";  
-    
+    itemPriceText.style.bottom = "10px";
+
     divTotal.appendChild(itemPriceText);
     checkoutInfo.appendChild(divTotal);
 }
 
-async function getItemData(itemInCart){
-    const itemRef  = doc(db, "Items", itemInCart.itemId);
+async function getItemData(userId, itemInCart) {
+    const itemRef = doc(db, "Items", itemInCart.itemId);
     const itemSnap = await getDoc(itemRef);
-    if(itemRef){
+    if (itemRef) {
         console.log("amount in cart: " + itemInCart.amount);
         console.log(itemSnap.data());
 
-        createCartItem(itemInCart.itemId, itemSnap.data(), itemInCart.amount);
+        createCartItem(userId, itemInCart.itemId, itemSnap.data(), itemInCart.amount);
     }
 }
 
 // Function to retrieve a collection
 async function getCartData(userId) {
-    const userCartRef = doc(db, "Users", userId); 
-      const userCartSnap = await getDoc(userCartRef);
-      if(userCartSnap){
+    const userCartRef = doc(db, "Users", userId);
+    const userCartSnap = await getDoc(userCartRef);
+    if (userCartSnap) {
         console.log(userCartSnap.data());
         const itemList = userCartSnap.data().itemList;
         console.log(itemList);
-       
+
         let cartTotal = 0;
-        for(const item of itemList){
+        for (const item of itemList) {
             const itemsRef = doc(db, "Items", item.itemId);
-                const itemsSnap = await getDoc(itemsRef);
-                cartTotal += Number(itemsSnap.data().itemPrice) * item.amount;
+            const itemsSnap = await getDoc(itemsRef);
+            cartTotal += Number(itemsSnap.data().itemPrice) * item.amount;
         }
         createCheckoutTab(cartTotal);
-        itemList.map((data, index) => getItemData(data))
-      }
-    
+        itemList.map((data, index) => getItemData(userId, data))
+    }
+
     //dataList.map((data, index) => createItem(data));
 
     //console.log(dataList);  // Output the data list
@@ -113,7 +153,7 @@ auth.onAuthStateChanged(user => {
 
         // Call the function
         getCartData(user.uid);
-    }else{
+    } else {
         document.querySelector("#logout").remove();
         document.querySelector("#image2").style.visibility = 'visible';
     }
