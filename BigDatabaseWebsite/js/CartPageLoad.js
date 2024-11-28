@@ -2,6 +2,10 @@ import { auth, db } from './App.js'
 import { signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { getFirestore, collection, getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+var cardNumber = 0;
+var expiryDate = "";
+var cvv = 0;
+var cardHolder = "";
 
 async function removeCartItem(userId, itemId, itemDiv, origPrice, priceText, itemAmount) {
     //decrease the amount in databvase and on page
@@ -102,11 +106,88 @@ async function createCheckoutTab(cartTotal) {
     itemPriceText.innerHTML = ("Total: $" + cartTotal);
 
     itemPriceText.style.color = "white";
-    itemPriceText.style.position = "absolute";
+    itemPriceText.style.position = "bottom";
     itemPriceText.style.bottom = "10px";
+
+    const form = document.createElement('form');
+    form.id = 'paymentForm';
+
+    const cardNumberLabel = document.createElement('label');
+    cardNumberLabel.setAttribute('for', 'cardNumber');
+    cardNumberLabel.textContent = 'Card Number';
+    form.appendChild(cardNumberLabel);
+    
+    const cardNumberInput = document.createElement('input');
+    cardNumberInput.type = 'text';
+    cardNumberInput.id = 'cardNumber';
+    cardNumberInput.name = 'cardNumber';
+    cardNumberInput.placeholder = '1234 5678 9012 3456';
+    cardNumberInput.required = true;
+    form.appendChild(cardNumberInput);
+
+    const expiryDateLabel = document.createElement('label');
+    expiryDateLabel.setAttribute('for', 'expiryDate');
+    expiryDateLabel.textContent = 'Expiry Date';
+    form.appendChild(expiryDateLabel);
+    
+    const expiryDateInput = document.createElement('input');
+    expiryDateInput.type = 'text';
+    expiryDateInput.id = 'expiryDate';
+    expiryDateInput.name = 'expiryDate';
+    expiryDateInput.placeholder = 'MM/YY';
+    expiryDateInput.required = true;
+    form.appendChild(expiryDateInput);
+
+    const cvvLabel = document.createElement('label');
+    cvvLabel.setAttribute('for', 'cvv');
+    cvvLabel.textContent = 'CVV';
+    form.appendChild(cvvLabel);
+    
+    const cvvInput = document.createElement('input');
+    cvvInput.type = 'text';
+    cvvInput.id = 'cvv';
+    cvvInput.name = 'cvv';
+    cvvInput.placeholder = '123';
+    cvvInput.required = true;
+    form.appendChild(cvvInput);
+
+    const cardHolderLabel = document.createElement('label');
+    cardHolderLabel.setAttribute('for', 'cardHolder');
+    cardHolderLabel.textContent = 'Cardholder Name';
+    form.appendChild(cardHolderLabel);
+    
+    const cardHolderInput = document.createElement('input');
+    cardHolderInput.type = 'text';
+    cardHolderInput.id = 'cardHolder';
+    cardHolderInput.name = 'cardHolder';
+    cardHolderInput.placeholder = 'John Doe';
+    cardHolderInput.required = true;
+    form.appendChild(cardHolderInput);
+
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.textContent = 'Pay Now';
+    form.appendChild(submitButton);
+
+    divTotal.appendChild(form);
 
     divTotal.appendChild(itemPriceText);
     checkoutInfo.appendChild(divTotal);
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const formData = {
+          cardNumber: cardNumberInput.value,
+          expiryDate: expiryDateInput.value,
+          cvv: cvvInput.value,
+          cardHolder: cardHolderInput.value,
+        };
+        
+        console.log('Form Data:', formData);
+        
+        form.reset();
+      });
 }
 
 async function getItemData(userId, itemInCart) {
@@ -172,6 +253,23 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
+    // document.addEventListener('submit', function(event) {
+    //     event.preventDefault();
+    //     console.log(document.getElementById("cardHolder").innerHTML)
+    //     const formData = {
+    //       cardNumber: cardNumberInput.value,
+    //       expiryDate: expiryDateInput.value,
+    //       cvv: cvvInput.value,
+    //       cardHolder: cardHolderInput.value,
+    //     };
+        
+    //     console.log('Form Data:', formData);
+        
+    //     // Reset form fields
+    //     form.reset();
+    //   });
+
+    
+
 
 })
-
