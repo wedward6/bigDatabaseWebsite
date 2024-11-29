@@ -1,11 +1,9 @@
 import { auth, db } from './App.js'
 import { signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, collection, getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, collection, getDoc, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-var cardNumber = 0;
-var expiryDate = "";
-var cvv = 0;
-var cardHolder = "";
+var userId = "";
+var orderItemsSnap;
 
 async function removeCartItem(userId, itemId, itemDiv, origPrice, priceText, itemAmount) {
     //decrease the amount in databvase and on page
@@ -95,7 +93,7 @@ function createCartItem(userId, itemId, data, amount) {
     }
 }
 
-async function createCheckoutTab(cartTotal) {
+async function createCheckoutTab(cartTotal, userCartSnap) {
     const checkoutInfo = document.querySelector(".CheckoutInfo");
 
     var divTotal = document.createElement("div");
@@ -167,6 +165,7 @@ async function createCheckoutTab(cartTotal) {
     const submitButton = document.createElement('button');
     submitButton.type = 'submit';
     submitButton.textContent = 'Pay Now';
+    submitButton.id = 'payButton';
     form.appendChild(submitButton);
 
     divTotal.appendChild(form);
@@ -184,10 +183,23 @@ async function createCheckoutTab(cartTotal) {
           cardHolder: cardHolderInput.value,
         };
         
-        console.log('Form Data:', formData);
-        
+//        console.log('Form Data:', formData);
+        document.querySelector("#payButton").addEventListener("click", purchaseItem(userId, formData, cartTotal, userCartSnap));
         form.reset();
       });
+}
+
+async function purchaseItem(userId, formData, cartTotal, userCartSnap){
+    await setDoc(doc(db, "UserOrders", "ase"),{
+        ItemList: userCartSnap.data().itemList,
+        orderID: "ase",
+        UserID: userCartSnap.data().userId,
+        paymentData: formData,
+        totalPrice: cartTotal
+    });
+    await setDoc(doc(db, "Users", userId),{merge : true},{
+        ItemList: ["bruh"]
+    })
 }
 
 async function getItemData(userId, itemInCart) {
@@ -205,6 +217,7 @@ async function getItemData(userId, itemInCart) {
 async function getCartData(userId) {
     const userCartRef = doc(db, "Users", userId);
     const userCartSnap = await getDoc(userCartRef);
+    orderItemsSnap = userCartSnap;
     if (userCartSnap) {
         console.log(userCartSnap.data());
         const itemList = userCartSnap.data().itemList;
@@ -216,7 +229,7 @@ async function getCartData(userId) {
             const itemsSnap = await getDoc(itemsRef);
             cartTotal += Number(itemsSnap.data().itemPrice) * item.amount;
         }
-        createCheckoutTab(cartTotal);
+        createCheckoutTab(cartTotal, userCartSnap);
         itemList.map((data, index) => getItemData(userId, data))
     }
 
@@ -234,6 +247,7 @@ auth.onAuthStateChanged(user => {
 
         // Call the function
         getCartData(user.uid);
+        userId = user.uid;
     } else {
         document.querySelector("#logout").remove();
         document.querySelector("#image2").style.visibility = 'visible';
@@ -253,21 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
-    // document.addEventListener('submit', function(event) {
-    //     event.preventDefault();
-    //     console.log(document.getElementById("cardHolder").innerHTML)
-    //     const formData = {
-    //       cardNumber: cardNumberInput.value,
-    //       expiryDate: expiryDateInput.value,
-    //       cvv: cvvInput.value,
-    //       cardHolder: cardHolderInput.value,
-    //     };
-        
-    //     console.log('Form Data:', formData);
-        
-    //     // Reset form fields
-    //     form.reset();
-    //   });
+
 
     
 
