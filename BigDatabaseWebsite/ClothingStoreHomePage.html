@@ -19,7 +19,7 @@
 		</style>
 	</head>
 	<body>
-		<Div class = "container">
+		<Div class = "HomePageContainer">
 			<nav class="TopBar">
 			
 			 <img id="logo" src="clothingLogo.png" onclick="window.location.href = 'ClothingStoreHomePage.html'">
@@ -27,7 +27,28 @@
 			 <img id="logout" src="logoutIcon.png">
 			 <img id="cart" src="cartIcon.png" onclick="window.location.href = 'CartPage.html'">
 			 </nav>
-			<main class="MainScreen">
+			 <div class = "FilterTab">
+				<form method="get" >		
+					  <label>ClothingType</label>
+					  <select id="clothingFilter" name="Clothing">
+						  <option value='All'>All Clothing</option>  
+						  <option value='Shirts'>Shirts</option> 
+						  <option value='Pants'>Pants</option> 
+						  <option value='Shoes'>Shoes</option>
+						  <option value='Accessories'>Accessories</option>  
+					  </select>  
+				</form>
+				<form method="get" >		
+					<label>Price Sort</label>
+					<select id="priceFilter" name="PriceSort">
+						<option value='asc'>Ascending</option>  
+						<option value='desc'>Descending</option>  
+					</select>
+						
+			  </form>
+			</div>
+			<main class="HomePageMainScreen">
+				
 				<div class="ItemContainer">
 									
 				</div>

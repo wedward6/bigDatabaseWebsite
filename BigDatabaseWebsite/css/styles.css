@@ -34,12 +34,61 @@
     background-size: cover;
     background-color: rgb(207, 207, 207);
     
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr;
+    align-content: center;
     justify-content: center;
     align-items: center;
 
     border-color: rgb(74, 74, 74);
     border-top-style: solid;
+}
+.HomePageContainer {
+    display: grid;
+
+    gap: 1px;
+    grid-template-rows: 15% 10% 1fr;
+    height:100vh;
+    width: 100%;
+}
+.HomePageMainScreen{
+    background-image: url('/BigDatabaseWebsite/texaschainsaw.gif');
+    background-size: cover;
+    background-color: rgb(207, 207, 207);
+    
+    display: flex;
+    grid-template-rows: 1fr;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    
+
+    width: 100%;
+
+    border-color: rgb(74, 74, 74);
+    border-top-style: solid;
+}
+.FilterTab{
+    background-color: rgb(19, 19, 19);
+
+    height: 100%;
+    width: 100%;
+   
+
+    display: grid;
+    grid-template-columns: .2fr .2fr;
+    justify-content:space-between;
+    
+    
+    align-items:center;
+    align-self: center;
+    
+    grid-template-rows: 100%;
+
+
+    border-color: rgb(74, 74, 74);
+    border-bottom-style: solid;
+
 }
 .SignInCard{
     text-align: center;
@@ -55,7 +104,13 @@
 
     color:white;
 }
+#clothingFilter, #priceFilter{
+    background-color: rgb(207, 207, 207);
 
+    border-width: 2px;
+    border-color: rgb(74, 74, 74);
+    border-bottom-style: solid;
+}
 form {
     display: flex;
     flex-direction: column;
@@ -145,6 +200,7 @@ button[type="submit"]:hover {
     width: 80%;
     height: 80%;
 
+    justify-self: center;
     gap: 1rem;
     grid-template-columns: repeat(4, auto);
     grid-template-rows: auto;
@@ -152,6 +208,10 @@ button[type="submit"]:hover {
     align-items: center;
     border-style: solid;
     border-color: rgb(74, 74, 74);
+
+    max-height: 30rem;
+
+    overflow-y: auto;
 }
 
 .purchasableItem img{
