@@ -30,7 +30,7 @@
 
 }
 .MainScreen{
-    background-image: url('/BigDatabaseWebsite/texaschainsaw.gif');
+    background-image: url('../texaschainsaw.gif');
     background-size: cover;
     background-color: rgb(207, 207, 207);
     
@@ -52,7 +52,7 @@
     width: 100%;
 }
 .HomePageMainScreen{
-    background-image: url('/BigDatabaseWebsite/texaschainsaw.gif');
+    background-image: url('../texaschainsaw.gif');
     background-size: cover;
     background-color: rgb(207, 207, 207);
     
