@@ -262,6 +262,8 @@ button[type="submit"]:hover {
     width: 90%;
     height: 85%;
 
+    min-width: 175vh;
+
    
     grid-template-columns: 60% 40%;
     grid-template-rows: 1fr;
