@@ -10,10 +10,29 @@ async function getPreviousOrders(userId) {
         const orderRef = doc(db,"UserOrders",order)
         const orderSnap = await getDoc(orderRef)
         console.log(orderSnap.data())
+        createOrderBlock(orderSnap.data());
     }
  
- //   const ordersSnap = doc(db, "UserOrders",)
 
+}
+
+async function createOrderBlock(orderSnapData){
+
+  const orderContainer = document.querySelector(".OrderContainer")
+
+  const orderDiv = document.createElement("div");
+  orderDiv.className = "OrderItem";
+  orderDiv.innerHTML = "bruh";
+  for(const itemId of orderSnapData.ItemList){
+//   const itemRef = doc(db, "Items", itemId);
+//   const itemSnap = await getDoc(itemRef);
+//    console.log(itemSnap.data().itemImagePath);
+    const img = document.createElement("img");
+//    img.src = "./ShopItemImages/" + itempSnap.data().itemImagePath;
+  orderDiv.appendChild(img);
+  }  
+
+  orderContainer.appendChild(orderDiv);
 
 }
 
