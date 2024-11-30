@@ -7,9 +7,6 @@
 				background-image: url('texaschainsaw.gif');
 				background-size: cover;
 
-				height: 100vh;
-				padding: 0;
-				margin: 0;
 
 				font-family: graf;
 				
@@ -30,30 +27,13 @@
 			#featuredLeft {
 			padding-left: 100px;
 			}
-			#title {
-				padding-top: 100px;
-			    padding-right: 300px;
-			    color: red;
 
-				font-size: 3rem;
-			}
-			#description {
-				padding-top: 100px;
-			    padding-right: 300px;
-			    color: white;
-
-				font-size: 3rem;
-			}
 			#price {
-				padding-top: 100px;
-			    padding-right: 300px;
 			    color: palegreen;
 
 				font-family: 'Courier New', Courier, monospace;
 			}
 			#purchaseButton {
-				padding-top: 100px;
-			    padding-right: 300px;
 			     cursor: pointer;
 			}
 			#purchaseButton:hover {
@@ -71,20 +51,21 @@
 				<img id="logout" src="logoutIcon.png">
 				<img id="cart" src="cartIcon.png" onclick="window.location.href = 'CartPage.html'">
 				</nav>
-			<main>
+			<main class="ItemDetailMainScreen">
+				<img class="purchasableItem" id="main" src="humanHat.png">	
+				<div class="itemInfo">
+					<h1 id="title">H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
+					<h1 id="description">H A N D   E M B R O I D E R E D</h1>
+					<h1 class = "priceText" id="price">$ 1 5 0 0</h1>
+					<h1 class="purchaseButton" id="purchaseButton" >Add To Cart</h1>
+				</div>
+							
+					
+		 	</main>
 
-				<h1 id="archivecom"style="size: 200" align="center">www.archive.com</h1>
-				<td>
-					<img id="main" src="humanHat.png" width="982px" height="944px" align="left">
-					<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
-					<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
-					<h1 id="title" style="size: 300" align="right" >H u m a n  _  L e a t h e r  _  T o p  _  H a t</h1>
-					<h1 id="description" style="size: 200" align="right">H A N D   E M B R O I D E R E D</h1>
-					<h1 id="price" style="size: 200" align="right">$ 1 5 0 0</h1>
-					<img id="purchaseButton" src="BuyNow.gif" align="right" width="128px" height="128px">
-				</td> 
- 
-		 </main>
+					
+					 
+					
 	 </Div>
 	</body>
 </html>	
