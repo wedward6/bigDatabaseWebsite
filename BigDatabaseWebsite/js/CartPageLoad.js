@@ -4,6 +4,11 @@ import { getFirestore, collection, getDoc, doc, setDoc, updateDoc } from "https:
 
 var userId = "";
 var orderItemsSnap;
+const stateSalesTax = { "Alabama": 1.04, "Alaska": 1.00, "Arizona": 1.056, "Arkansas": 1.065, "California": 1.0725, "Colorado": 1.029, "Connecticut": 1.0635, "Delaware": 1.00, "Florida": 1.06, "Georgia": 1.04, "Hawaii": 1.04, "Idaho": 1.06,
+     "Illinois": 1.0625, "Indiana": 1.07, "Iowa": 1.06, "Kansas": 1.065, "Kentucky": 1.06, "Louisiana": 1.0445, "Maine": 1.055, "Maryland": 1.06, "Massachusetts": 1.0625, "Michigan": 1.06, "Minnesota": 1.06875, "Mississippi": 1.07, "Missouri": 1.0423, 
+     "Montana": 1.00, "Nebraska": 1.055, "Nevada": 1.0685, "New Hampshire": 1.00, "New Jersey": 1.0625, "New Mexico": 1.0513, "New York": 1.04, "North Carolina": 1.0475, "North Dakota": 1.05, "Ohio": 1.0575, "Oklahoma": 1.045, "Oregon": 1.00,
+     "Pennsylvania": 1.06, "Rhode Island": 1.07, "South Carolina": 1.06, "South Dakota": 1.045, "Tennessee": 1.07, "Texas": 1.0625, "Utah": 1.0485, "Vermont": 1.06, "Virginia": 1.053, "Washington": 1.065, "West Virginia": 1.06, "Wisconsin": 1.05, "Wyoming": 1.04 };
+
 
 async function removeCartItem(userId, itemId, itemDiv, origPrice, priceText, itemAmount) {
     //decrease the amount in databvase and on page
@@ -103,12 +108,109 @@ async function createCheckoutTab(cartTotal, userCartSnap) {
     itemPriceText.className = "Total";
     itemPriceText.innerHTML = ("Total: $" + cartTotal);
 
+
     itemPriceText.style.color = "white";
     itemPriceText.style.position = "bottom";
     itemPriceText.style.bottom = "10px";
 
+
     const form = document.createElement('form');
     form.id = 'paymentForm';
+
+    // Create name input
+    const nameLabel = document.createElement('label');
+    nameLabel.innerText = 'Full Name:';
+    const nameInput = document.createElement('input');
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('id', 'name');
+    nameInput.setAttribute('name', 'name');
+    nameInput.setAttribute('required', true);
+
+    // Create email input
+    const emailLabel = document.createElement('label');
+    emailLabel.innerText = 'Email Address:';
+    const emailInput = document.createElement('input');
+    emailInput.setAttribute('type', 'text');
+    emailInput.setAttribute('id', 'email');
+    emailInput.setAttribute('name', 'email');
+    emailInput.setAttribute('required', true);
+
+    // Create phone number input
+    const phoneLabel = document.createElement('label');
+    phoneLabel.innerText = 'Phone Number:';
+    const phoneInput = document.createElement('input');
+    phoneInput.setAttribute('type', 'tel');
+    phoneInput.setAttribute('id', 'phone');
+    phoneInput.setAttribute('name', 'phone');
+    phoneInput.setAttribute('required', true);
+
+    // Create address input
+    const addressLabel = document.createElement('label');
+    addressLabel.innerText = 'Shipping Address:';
+    const addressInput = document.createElement('input');
+    addressInput.setAttribute('type', 'text');
+    addressInput.setAttribute('id', 'address');
+    addressInput.setAttribute('name', 'address');
+    addressInput.setAttribute('required', true);
+
+    // Create city input
+    const cityLabel = document.createElement('label');
+    cityLabel.innerText = 'City:';
+    const cityInput = document.createElement('input');
+    cityInput.setAttribute('type', 'text');
+    cityInput.setAttribute('id', 'city');
+    cityInput.setAttribute('name', 'city');
+    cityInput.setAttribute('required', true);
+
+    // Create state dropdown
+    const stateLabel = document.createElement('label');
+    stateLabel.innerText = 'State:';
+    const stateSelect = document.createElement('select');
+    stateSelect.setAttribute('id', 'state');
+    stateSelect.setAttribute('name', 'state');
+    const states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois',
+                    'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
+                    'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
+                    'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    states.forEach(state => {
+        const option = document.createElement('option');
+        option.setAttribute('value', state);
+        option.innerText = state;
+        stateSelect.appendChild(option);
+    });
+
+    // Create zip code input
+    const zipLabel = document.createElement('label');
+    zipLabel.innerText = 'ZIP Code:';
+    const zipInput = document.createElement('input');
+    zipInput.setAttribute('type', 'text');
+    zipInput.setAttribute('id', 'zip');
+    zipInput.setAttribute('name', 'zip');
+    zipInput.setAttribute('required', true);
+
+    // Create submit button
+    const submitShipButton = document.createElement('button');
+    submitShipButton.setAttribute('type', 'submit');
+    submitShipButton.innerText = 'Submit';
+
+    // Append all form elements to the form
+    form.appendChild(nameLabel);
+    form.appendChild(nameInput);
+    form.appendChild(emailLabel);
+    form.appendChild(emailInput);
+    form.appendChild(phoneLabel);
+    form.appendChild(phoneInput);
+    form.appendChild(addressLabel);
+    form.appendChild(addressInput);
+    form.appendChild(cityLabel);
+    form.appendChild(cityInput);
+    form.appendChild(stateLabel);
+    form.appendChild(stateSelect);
+    form.appendChild(zipLabel);
+    form.appendChild(zipInput);
+
+    // Append the form to the container
+    checkoutInfo.appendChild(form);
 
     const cardNumberLabel = document.createElement('label');
     cardNumberLabel.setAttribute('for', 'cardNumber');
@@ -177,6 +279,13 @@ async function createCheckoutTab(cartTotal, userCartSnap) {
         event.preventDefault();
         
         const formData = {
+          name: nameInput.value,
+          email: emailInput.value,
+          phone: phoneInput.value,
+          address: addressInput.value,
+          city: cityInput.value,
+          state: stateSelect.value,
+          zip: zipInput.value,
           cardNumber: cardNumberInput.value,
           expiryDate: expiryDateInput.value,
           cvv: cvvInput.value,
@@ -187,6 +296,16 @@ async function createCheckoutTab(cartTotal, userCartSnap) {
         document.querySelector("#payButton").addEventListener("click", purchaseItem(userId, formData, cartTotal, userCartSnap));
         form.reset();
       });
+
+      stateSelect.addEventListener('change', function() {
+        const selectedState = stateSelect.value;
+        const taxMultiplier = stateSalesTax[selectedState] || 1; // Default to 1 if state is not found
+        var newCartTotal = cartTotal * taxMultiplier;
+        itemPriceText.innerHTML = ("Total: $" + newCartTotal);
+        console.log(cartTotal);
+    //    cartTotalElement.innerText = updatedTotal.toFixed(2);
+    });
+
 }
 
 async function purchaseItem(userId, formData, cartTotal, userCartSnap){
@@ -212,11 +331,8 @@ async function purchaseItem(userId, formData, cartTotal, userCartSnap){
         itemList : []
     });
 
-    const currCartItems = document.querySelectorAll(".CartItem");
-    currCartItems.forEach(element => {
-        element.remove();
-    });
-    alert("Order " + autoGeneratedID + " Complete");
+
+
 }
 
 async function getItemData(userId, itemInCart) {
