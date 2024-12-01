@@ -29,7 +29,7 @@ async function createOrderBlock(orderSnapData){
 //    console.log(itemSnap.data().itemImagePath);
     const img = document.createElement("img");
 //    img.src = "./ShopItemImages/" + itempSnap.data().itemImagePath;
-  orderDiv.appendChild(img);
+    orderDiv.appendChild(img);
   }  
 
   orderContainer.appendChild(orderDiv);
