@@ -62,6 +62,7 @@
     height: 100%;
     width: 100%;
     
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
     align-content: center;
 
@@ -250,14 +251,24 @@ button[type="submit"]:hover {
     font-size: x-large;
 }
 
-#logo, #cart, #image2, #logout, .CartImg{
+#logo, #cart, #image2, #logout{
     width: 10rem;
     height: 80%;
 
     justify-self: center;
     
+    
 }
-#logo, #cart, #logout, .CartImg{
+.CartImg{
+    width: 10rem;
+    height: 60%;
+
+    justify-self: center; 
+
+    border-style: solid;
+    background-color: rgb(36, 36, 37);
+}
+#logo, #cart, #logout{
     border-style: solid;
     background-color: rgb(36, 36, 37);
 }
@@ -342,13 +353,14 @@ button[type="submit"]:hover {
 
     padding: 1rem;
  
-    width: 80vh;
+    width: 90%;
     height: 85%;
 
+   min-width: 55vh;
+align-self: center;
+justify-self: center;
    
-
-   
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 70% 30%;
     grid-template-rows: .25fr 1fr;
     justify-content: space-evenly;
     align-items: center;
@@ -364,11 +376,12 @@ button[type="submit"]:hover {
     width: 90%;
     height: 85%;
 
-    min-width: 50vh;
+    min-width: 5vh;
 
-   
-    
-    grid-template-rows: .25fr 1fr;
+   justify-self: center;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
     justify-content: space-evenly;
 
     border-style: solid;
@@ -380,6 +393,17 @@ button[type="submit"]:hover {
     color: white;
     text-decoration: underline;
 }
+
+#paymentForm{
+    height: 60%;
+    margin: 0;
+    padding: 5px;
+}
+#paymentForm > *{
+    width: 80%;
+
+}
+
 .CartContainer{
     display: grid;
     background-color: 'clear';
@@ -394,6 +418,7 @@ button[type="submit"]:hover {
     grid-auto-rows: 15rem;
     
     max-height: 65rem;
+   
 
     overflow-y: auto;
 
@@ -457,6 +482,7 @@ button[type="submit"]:hover {
     height: 100%;
     width: 100%;
 
+    font-size: 130%;
    align-content: center;
 }
 .CheckoutInfo{
@@ -469,9 +495,7 @@ button[type="submit"]:hover {
     height: 85%;
    
 
-    gap: 1rem;
-    grid-template-columns: repeat(2, auto);
-    grid-template-rows: 1fr;
+    grid-template-rows: .5fr;
     justify-content: center;
     align-items: center;
     border-style: solid;
@@ -480,6 +504,7 @@ button[type="submit"]:hover {
 .CartItem{
     display: grid;
     max-height: 13rem;
+
     width: 100%;
     height: 90%;
     background-color: #282828;
