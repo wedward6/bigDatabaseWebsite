@@ -1,6 +1,6 @@
 import { auth, db } from './App.js'
 import { signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, collection, getDoc, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, collection, getDoc, doc, setDoc, updateDoc, query, where, getDocs} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 var userId = "";
 var orderItemsSnap;
@@ -45,7 +45,8 @@ async function removeCartItem(userId, itemId, itemDiv, origPrice, priceText, ite
     }
 }
 function createCartItem(userId, itemId, data, amount) {
-    const cartContainer = document.querySelector(".CartContainer");
+    const orderContainer = document.querySelector(".OrderContents");
+   
     if (data) {
         const itemDiv = document.createElement("div");
         itemDiv.className = "CartItem";
@@ -69,10 +70,6 @@ function createCartItem(userId, itemId, data, amount) {
         amountOfItem.className = "ItemAmount";
         amountOfItem.innerHTML = ("x" + amount);
 
-        const deleteItemButton = document.createElement("h1");
-        deleteItemButton.className = "RemoveItemText";
-        deleteItemButton.innerHTML = "X"
-        deleteItemButton.onclick = (e) => { removeCartItem(userId, itemId, itemDiv, data.itemPrice, itemPriceText, amountOfItem) }
 
         //setup price
         const itemPriceText = document.createElement("h1");
@@ -84,10 +81,9 @@ function createCartItem(userId, itemId, data, amount) {
         itemDiv.appendChild(title);
         itemDiv.appendChild(itemPriceText);
         itemDiv.appendChild(amountOfItem);
-        itemDiv.appendChild(deleteItemButton);
 
 
-        cartContainer.appendChild(itemDiv);
+        orderContainer.appendChild(itemDiv);
 
 
     }
@@ -136,6 +132,40 @@ async function getItemData(userId, itemInCart) {
     }
 }
 
+async function loadOrderContents(userId, itemList){
+   
+    const prevItemsInOrder = document.querySelectorAll(".CartItem");
+    prevItemsInOrder.forEach(element => {
+        element.remove();
+    });
+    
+   itemList.map((data, index) => getItemData(userId, data))
+}
+function createOrder(orderData){
+    const orderList = document.querySelector(".OrderList");
+    const orderElement = document.createElement("h1");
+    orderElement.className = "Order";
+    orderElement.innerHTML = `Order: ${orderData.id}`;
+
+    orderElement.onclick = (e) => loadOrderContents(orderData.UserID, orderData.ItemList);
+    orderList.appendChild(orderElement);
+}
+async function getOrderData(userId){
+    const userOrders = collection(db, "UserOrders")
+    const userOrdersQuery = query(userOrders, where("UserID", "==", userId));
+    const userOrderSnapshot = await getDocs(userOrdersQuery);
+
+    const specificUserOrders = userOrderSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+
+    specificUserOrders.forEach((doc) => {
+        console.log(`Document ID: ${doc.id}`);
+        createOrder(doc);
+    });
+
+}
 // Function to retrieve a collection
 async function getCartData(userId) {
     const userCartRef = doc(db, "Users", userId);
@@ -168,7 +198,8 @@ auth.onAuthStateChanged(user => {
         document.querySelector("#logout").style.visibility = 'visible';
 
         // Call the function
-        getCartData(user.uid);
+        //getCartData(user.uid);
+        getOrderData(user.uid);
         userId = user.uid;
     } else {
         document.querySelector("#logout").remove();
